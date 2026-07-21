@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import api from '../services/api';
 import { 
-  Camera, Upload, Eye, RefreshCw, AlertCircle, Play, Pause,
-  Cpu, FileText, CheckCircle2, Sliders, Info, Zap
+  Camera, Upload, Eye, RefreshCw, AlertCircle, Pause,
+  CheckCircle2, Sliders, Info, Zap
 } from 'lucide-react';
 
 interface ExtractedFeatures {
@@ -28,7 +28,6 @@ const WorkspacePage: React.FC = () => {
   
   // Webcam states
   const [isWebcamActive, setIsWebcamActive] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
   // Output prediction states

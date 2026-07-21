@@ -12,8 +12,8 @@ export default {
           100: '#ebf0ff',
           200: '#d6e0ff',
           300: '#b3c7ff',
-          400: '#85a3xff',
-          500: '#3b82f6', # primary blue
+          400: '#85a3ff',
+          500: '#3b82f6', // primary blue
           600: '#2563eb',
           700: '#1d4ed8',
           800: '#1e40af',

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 import { useAuth } from '../store/AuthContext';
 import { 
-  Shield, User, Users, Server, Trash2, CheckCircle2, 
+  Shield, Users, Server, Trash2, CheckCircle2, 
   AlertTriangle, RefreshCw, Layers, Database, Tag
 } from 'lucide-react';
 

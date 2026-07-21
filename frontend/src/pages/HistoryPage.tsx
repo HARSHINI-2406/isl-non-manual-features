@@ -3,7 +3,7 @@ import api from '../services/api';
 import { useAuth } from '../store/AuthContext';
 import { 
   Search, Trash2, Calendar, FileText, ArrowLeft, ArrowRight,
-  Filter, HelpCircle, AlertTriangle, RefreshCw
+  Filter, RefreshCw
 } from 'lucide-react';
 
 interface HistoryItem {

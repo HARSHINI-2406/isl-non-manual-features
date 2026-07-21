@@ -21,7 +21,7 @@ class AuthService:
             
         hashed_password = get_password_hash(register_in.password)
         db_user = self.user_repo.create(db, register_in, hashed_password)
-        return UserResponse.from_attributes(db_user)
+        return UserResponse.model_validate(db_user)
 
     def login(self, db: Session, login_in: LoginRequest) -> TokenResponse:
         db_user = self.user_repo.get_by_email(db, login_in.email)
@@ -34,10 +34,10 @@ class AuthService:
             
         # Create access token
         access_token = create_access_token(
-            data={"sub": db_user.id, "role": db_user.role}
+            data={"sub": str(db_user.id), "role": db_user.role}
         )
         
-        user_response = UserResponse.from_attributes(db_user)
+        user_response = UserResponse.model_validate(db_user)
         return TokenResponse(
             access_token=access_token,
             user=user_response
@@ -50,4 +50,4 @@ class AuthService:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="User not found"
             )
-        return UserResponse.from_attributes(db_user)
+        return UserResponse.model_validate(db_user)

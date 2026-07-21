@@ -197,7 +197,7 @@ const DashboardPage: React.FC = () => {
                   itemStyle={{ color: '#fff', fontSize: '12px' }}
                 />
                 <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                  {distribution.map((entry, index) => (
+                  {distribution.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Bar>

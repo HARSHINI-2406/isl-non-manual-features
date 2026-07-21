@@ -3,7 +3,7 @@ import api from '../services/api';
 import { useAuth } from '../store/AuthContext';
 import { 
   User, Mail, KeyRound, CheckCircle2, AlertTriangle, Shield, 
-  Settings, Loader2 
+  Loader2 
 } from 'lucide-react';
 
 const ProfilePage: React.FC = () => {

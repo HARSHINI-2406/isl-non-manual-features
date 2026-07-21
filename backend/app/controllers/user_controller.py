@@ -16,7 +16,7 @@ def get_profile(current_user: User = Depends(get_current_user)):
     """
     Get profile of the currently logged-in user.
     """
-    return UserResponse.from_attributes(current_user)
+    return UserResponse.model_validate(current_user)
 
 @router.put("/profile", response_model=UserResponse)
 def update_profile(
@@ -37,7 +37,7 @@ def update_profile(
             )
             
     updated_user = user_repo.update(db, current_user, user_in)
-    return UserResponse.from_attributes(updated_user)
+    return UserResponse.model_validate(updated_user)
 
 @router.put("/profile/password")
 def change_password(
@@ -71,7 +71,7 @@ def get_users_list(
     Get list of all users. Admin privileges required.
     """
     db_users = user_repo.get_all(db, skip=skip, limit=limit)
-    return [UserResponse.from_attributes(x) for x in db_users]
+    return [UserResponse.model_validate(x) for x in db_users]
 
 @router.delete("/{user_id}")
 def delete_user(

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 import { 
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, 
-  BarChart, Bar, Cell, PieChart, Pie, Legend
+  Cell, PieChart, Pie, Legend
 } from 'recharts';
 import { 
   BarChart3, RefreshCw, Activity, Award, CheckCircle2, 
-  Eye, HelpCircle, AlertCircle, TrendingUp
+  Eye, TrendingUp
 } from 'lucide-react';
 
 interface StatsResponse {

@@ -20,7 +20,7 @@ class HistoryService:
         db_items, total = self.history_repo.get_all(
             db, user_id=user_id, search=search, input_type=input_type, skip=skip, limit=limit
         )
-        items = [PredictionHistoryResponse.from_attributes(x) for x in db_items]
+        items = [PredictionHistoryResponse.model_validate(x) for x in db_items]
         return items, total
 
     def delete_history_item(self, db: Session, history_id: int, user_id: int, user_role: str) -> bool:
