@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Get base URL from environment or default to localhost
-const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://isl-non-manual-features.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_URL,
