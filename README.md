@@ -1,4 +1,10 @@
-# Capturing Non-Manual Features of Indian Sign Language and Converting It into Text
+## 🚀 Live Demo
+
+Frontend: https://isl-nmf-frontend.onrender.com
+
+Backend API: https://isl-non-manual-features.onrender.com
+
+API Documentation (Swagger): https://isl-non-manual-features.onrender.com/docs# Capturing Non-Manual Features of Indian Sign Language and Converting It into Text
 
 An advanced, production-ready AI translation platform that captures, maps, and translates **Non-Manual Features (NMFs)** of Indian Sign Language (ISL)—such as facial expressions, eyebrow movements, eye gaze direction, head pose variations, and torso lean—into readable text translations. 
 
