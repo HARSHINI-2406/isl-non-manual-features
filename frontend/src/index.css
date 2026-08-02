@@ -2,79 +2,206 @@
 @tailwind components;
 @tailwind utilities;
 
-.glass-card {
-  background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 263.4 70% 50.4%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
 }
 
-.glass-card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* Base Font Sizing Adjustments */
+html.text-size-sm {
+  font-size: 14px;
+}
+html.text-size-base {
+  font-size: 16px;
+}
+html.text-size-lg {
+  font-size: 18px;
 }
 
-.glass-card-hover:hover {
-  background: rgba(15, 23, 42, 0.6);
-  border-color: rgba(59, 130, 246, 0.35);
-  box-shadow: 0 12px 30px -5px rgba(59, 130, 246, 0.12);
-  transform: translateY(-2px);
-}
-
-.glass-sidebar {
-  background: rgba(3, 7, 18, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.glass-nav {
-  background: rgba(3, 7, 18, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.glow-button {
-  position: relative;
-  overflow: hidden;
-}
-
-.glow-button::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -60%;
-  width: 30%;
-  height: 200%;
-  background: rgba(255, 255, 255, 0.15);
-  transform: rotate(35deg);
-  transition: all 500ms ease;
-}
-
-.glow-button:hover::after {
-  left: 130%;
-}
-
+/* Custom Scrollbar Styles */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
+  background: transparent;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 3px;
+/* Active Keyboard Navigation Focus styles */
+.keyboard-navigation *:focus {
+  outline: 3px solid #4f46e5 !important;
+  outline-offset: 2px !important;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.22);
+/* Theme Configuration Styles */
+
+/* --- 1. LIGHT MODE (DEFAULT) --- */
+html.light, html:not(.dark):not(.contrast) {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-light: #94a3b8;
+  --border-color: #e2e8f0;
+  --accent-color: #4f46e5; /* Indigo default */
+  --accent-hover: #4338ca;
+  --accent-text: #ffffff;
+  --success-color: #10b981; /* Emerald Green */
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  color-scheme: light;
+}
+
+/* --- 2. DARK MODE --- */
+html.dark {
+  --bg-primary: #09090b;
+  --bg-secondary: #18181b;
+  --bg-tertiary: #27272a;
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --text-light: #64748b;
+  --border-color: #27272a;
+  --accent-color: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-text: #ffffff;
+  --success-color: #10b981;
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  color-scheme: dark;
+}
+
+/* --- 3. HIGH CONTRAST MODE --- */
+html.contrast {
+  --bg-primary: #000000;
+  --bg-secondary: #000000;
+  --bg-tertiary: #111111;
+  --text-main: #ffffff;
+  --text-muted: #ffffff;
+  --text-light: #ffff00; /* Yellow for visible highlight */
+  --border-color: #ffffff;
+  --accent-color: #ffff00; /* Yellow */
+  --accent-hover: #00ff00; /* Green */
+  --accent-text: #000000;
+  --success-color: #00ff00;
+  --card-shadow: none;
+  --card-shadow-hover: none;
+  color-scheme: dark;
+}
+
+/* App Theme Integration Styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+.theme-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  border-radius: 1rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-card-hover:hover {
+  border-color: var(--accent-color);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.theme-border {
+  border-color: var(--border-color);
+}
+
+.theme-bg-sub {
+  background-color: var(--bg-tertiary);
+}
+
+.theme-bg-card {
+  background-color: var(--bg-secondary);
+}
+
+.theme-text-main {
+  color: var(--text-main);
+}
+
+.theme-text-muted {
+  color: var(--text-muted);
+}
+
+.theme-text-light {
+  color: var(--text-light);
+}
+
+.theme-accent-btn {
+  background-color: var(--accent-color);
+  color: var(--accent-text);
+  transition: background-color 0.15s ease;
+}
+
+.theme-accent-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+.theme-accent-text {
+  color: var(--accent-color);
+}
+
+.theme-accent-border {
+  border-color: var(--accent-color);
+}
+
+/* Specific elements styles */
+.theme-nav {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.theme-sidebar {
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+}
+
+.theme-input {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.theme-input:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+/* Animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.98); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite ease-in-out;
 }

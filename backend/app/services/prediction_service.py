@@ -39,7 +39,7 @@ class PredictionService:
         # To avoid overloading the DB with sub-second live frames,
         # we save to history only if a high-confidence prediction occurs.
         # This keeps the history clean and highly relevant.
-        if result.get("success") and result.get("confidence") >= 0.8:
+        if result.get("success") and result.get("confidence") >= 80.0:
             # Check if this matches the last saved prediction recently to avoid duplicate flood
             recent_items, _ = self.history_repo.get_all(db, user_id=user_id, limit=1)
             if not recent_items or recent_items[0].output_text != result.get("translation"):

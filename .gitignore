@@ -5,3 +5,7 @@ __pycache__/
 frontend/node_modules/
 frontend/dist/
 *.db
+
+backend/dataset/dataset3/
+backend/dataset_extracted.csv
+*.zip

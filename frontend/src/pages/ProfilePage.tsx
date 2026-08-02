@@ -86,50 +86,50 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6 max-w-4xl font-sans">
       <div>
-        <h2 className="text-xl font-bold text-slate-200">Account Settings</h2>
-        <p className="text-sm text-slate-400">Update your profile parameters and security credentials.</p>
+        <h2 className="text-xl font-bold theme-text-main">Account Settings</h2>
+        <p className="text-sm theme-text-muted">Update your profile parameters and security credentials.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Profile Card */}
-        <div className="glass-card rounded-2xl p-6 flex flex-col justify-between">
-          <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-5">
-            <div className="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-500">
+        <div className="theme-card p-6 flex flex-col justify-between">
+          <div className="flex items-center gap-3 border-b theme-border pb-4 mb-5">
+            <div className="w-10 h-10 rounded-xl bg-indigo-650/10 flex items-center justify-center text-indigo-500">
               <User className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-200">Profile Details</h3>
-              <p className="text-xs text-slate-500">Update your name and contact details</p>
+              <h3 className="font-bold theme-text-main">Profile Details</h3>
+              <p className="text-xs theme-text-light">Update your name and contact details</p>
             </div>
           </div>
 
           <form onSubmit={handleProfileSubmit} className="space-y-4 flex-1">
             {profileSuccess && (
-              <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs flex gap-2.5">
+              <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-450 text-xs flex gap-2.5">
                 <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{profileSuccess}</span>
               </div>
             )}
             {profileError && (
-              <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex gap-2.5">
+              <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/25 text-red-650 dark:text-red-400 text-xs flex gap-2.5">
                 <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{profileError}</span>
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold theme-text-muted uppercase tracking-wider mb-2">
                 Full Name
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 pointer-events-none">
+                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center theme-text-light pointer-events-none">
                   <User className="w-4.5 h-4.5" />
                 </span>
                 <input
                   type="text"
-                  className="w-full pl-11 pr-4 py-2.5 bg-slate-950/80 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-blue-500 text-slate-200 placeholder:text-slate-600"
+                  className="w-full pl-11 pr-4 py-2.5 theme-input rounded-xl text-sm focus:outline-none placeholder:text-slate-500"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   disabled={profileLoading}
@@ -139,16 +139,16 @@ const ProfilePage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold theme-text-muted uppercase tracking-wider mb-2">
                 Email Address
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 pointer-events-none">
+                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center theme-text-light pointer-events-none">
                   <Mail className="w-4.5 h-4.5" />
                 </span>
                 <input
                   type="email"
-                  className="w-full pl-11 pr-4 py-2.5 bg-slate-950/80 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-blue-500 text-slate-200 placeholder:text-slate-600"
+                  className="w-full pl-11 pr-4 py-2.5 theme-input rounded-xl text-sm focus:outline-none placeholder:text-slate-500"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={profileLoading}
@@ -157,62 +157,62 @@ const ProfilePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-slate-900/30 p-3.5 rounded-xl border border-white/5 flex items-center gap-3">
-              <Shield className="w-5 h-5 text-slate-500 shrink-0" />
+            <div className="theme-bg-sub p-3.5 rounded-xl border theme-border flex items-center gap-3">
+              <Shield className="w-5 h-5 theme-text-light shrink-0" />
               <div>
-                <span className="text-[10px] text-slate-500 block uppercase font-bold">Assigned User Role</span>
-                <span className="text-xs font-bold text-slate-300 capitalize">{user?.role} Access</span>
+                <span className="text-[10px] theme-text-light block uppercase font-bold">Assigned User Role</span>
+                <span className="text-xs font-bold theme-text-main capitalize">{user?.role} Access</span>
               </div>
             </div>
 
             <button
               type="submit"
-              className="w-full px-4 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-xs font-semibold rounded-xl text-white shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
+              className="w-full px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-xs font-semibold rounded-xl text-white shadow-md transition-all flex items-center justify-center gap-2"
               disabled={profileLoading}
             >
-              {profileLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Save Profile details'}
+              {profileLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Save Profile Details'}
             </button>
           </form>
         </div>
 
         {/* Password Card */}
-        <div className="glass-card rounded-2xl p-6 flex flex-col justify-between">
-          <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-5">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600/10 flex items-center justify-center text-indigo-500">
+        <div className="theme-card p-6 flex flex-col justify-between">
+          <div className="flex items-center gap-3 border-b theme-border pb-4 mb-5">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
               <KeyRound className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-200">Security & Password</h3>
-              <p className="text-xs text-slate-500">Change your sign-in password</p>
+              <h3 className="font-bold theme-text-main">Security & Password</h3>
+              <p className="text-xs theme-text-light">Change your sign-in password</p>
             </div>
           </div>
 
           <form onSubmit={handlePasswordSubmit} className="space-y-4 flex-1">
             {pwdSuccess && (
-              <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs flex gap-2.5">
+              <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-450 text-xs flex gap-2.5">
                 <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{pwdSuccess}</span>
               </div>
             )}
             {pwdError && (
-              <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex gap-2.5">
+              <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/25 text-red-650 dark:text-red-400 text-xs flex gap-2.5">
                 <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{pwdError}</span>
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold theme-text-muted uppercase tracking-wider mb-2">
                 Old Password
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 pointer-events-none">
+                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center theme-text-light pointer-events-none">
                   <KeyRound className="w-4.5 h-4.5" />
                 </span>
                 <input
                   type="password"
                   placeholder="••••••••"
-                  className="w-full pl-11 pr-4 py-2.5 bg-slate-950/80 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-blue-500 text-slate-200 placeholder:text-slate-600"
+                  className="w-full pl-11 pr-4 py-2.5 theme-input rounded-xl text-sm focus:outline-none placeholder:text-slate-500"
                   value={oldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
                   disabled={pwdLoading}
@@ -222,17 +222,17 @@ const ProfilePage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold theme-text-muted uppercase tracking-wider mb-2">
                 New Password
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 pointer-events-none">
+                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center theme-text-light pointer-events-none">
                   <KeyRound className="w-4.5 h-4.5" />
                 </span>
                 <input
                   type="password"
                   placeholder="••••••••"
-                  className="w-full pl-11 pr-4 py-2.5 bg-slate-950/80 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-blue-500 text-slate-200 placeholder:text-slate-600"
+                  className="w-full pl-11 pr-4 py-2.5 theme-input rounded-xl text-sm focus:outline-none placeholder:text-slate-500"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   disabled={pwdLoading}
@@ -242,17 +242,17 @@ const ProfilePage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold theme-text-muted uppercase tracking-wider mb-2">
                 Confirm New Password
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 pointer-events-none">
+                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center theme-text-light pointer-events-none">
                   <KeyRound className="w-4.5 h-4.5" />
                 </span>
                 <input
                   type="password"
                   placeholder="••••••••"
-                  className="w-full pl-11 pr-4 py-2.5 bg-slate-950/80 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-blue-500 text-slate-200 placeholder:text-slate-600"
+                  className="w-full pl-11 pr-4 py-2.5 theme-input rounded-xl text-sm focus:outline-none placeholder:text-slate-500"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   disabled={pwdLoading}
@@ -263,10 +263,10 @@ const ProfilePage: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-xs font-semibold rounded-xl text-white shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2"
+              className="w-full px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-xs font-semibold rounded-xl text-white shadow-md transition-all flex items-center justify-center gap-2"
               disabled={pwdLoading}
             >
-              {pwdLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Update password'}
+              {pwdLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Update Password'}
             </button>
           </form>
         </div>

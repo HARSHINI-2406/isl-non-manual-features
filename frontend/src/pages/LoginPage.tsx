@@ -1,176 +1,933 @@
-import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../store/AuthContext';
-import { Cpu, AlertTriangle, KeyRound, Mail, Loader2 } from 'lucide-react';
+import React, { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import {
+  Cpu,
+  AlertTriangle,
+  KeyRound,
+  Mail,
+  Loader2,
+  Eye,
+  Sun,
+  Moon,
+  CheckCircle2,
+  Sparkles,
+  Brain,
+  ScanFace,
+  ShieldCheck,
+} from "lucide-react";
+
+import { useAuth } from "../store/AuthContext";
+import { useTheme } from "../store/ThemeContext";
+
 
 const LoginPage: React.FC = () => {
+
   const { login } = useAuth();
+  const { theme, setTheme } = useTheme();
+
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
-  // Check if redirected from profile expiry or register success
+
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [rememberMe,setRememberMe] = useState(false);
+
+  const [loading,setLoading] = useState(false);
+  const [error,setError] = useState<string | null>(null);
+
+
+
   const queryParams = new URLSearchParams(location.search);
-  const isExpired = queryParams.get('expired') === 'true';
-  const isRegistered = queryParams.get('registered') === 'true';
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const isExpired =
+    queryParams.get("expired") === "true";
+
+  const isRegistered =
+    queryParams.get("registered") === "true";
+
+
+
+
+
+  const handleSubmit = async(
+    e:React.FormEvent
+  ) => {
+
     e.preventDefault();
+
     setError(null);
 
-    if (!email || !password) {
-      setError('Please enter both email and password.');
+
+    if(!email || !password){
+
+      setError(
+        "Please enter both email and password."
+      );
+
       return;
+
     }
+
+
 
     setLoading(true);
-    try {
-      await login(email, password, rememberMe);
-      // Navigate to intended page or fall back to dashboard
-      const origin = (location.state as { from?: { pathname: string } })?.from?.pathname || '/dashboard';
-      navigate(origin);
-    } catch (err: any) {
-      console.error(err);
-      setError(
-        err.response?.data?.detail || 
-        'Could not sign in. Please verify your email and password connection.'
+
+
+    try{
+
+
+      await login(
+        email,
+        password,
+        rememberMe
       );
-    } finally {
-      setLoading(false);
+
+
+      const origin =
+      (location.state as any)
+      ?.from
+      ?.pathname || "/dashboard";
+
+
+      navigate(origin);
+
+
+
+    }catch(err:any){
+
+
+      setError(
+        err.response?.data?.detail ||
+        "Invalid login credentials."
+      );
+
+
     }
+    finally{
+
+      setLoading(false);
+
+    }
+
   };
 
-  return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Lights background */}
-      <div className="absolute w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[80px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
-      <div className="w-full max-w-md relative z-10">
-        {/* Brand Info */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20 mb-4">
-            <Cpu className="w-6 h-6 text-white" />
-          </div>
-          <h2 className="text-2xl font-bold tracking-tight text-slate-100">Sign in to your account</h2>
-          <p className="text-sm text-slate-400 mt-2">Access your sign recognition workspace</p>
-        </div>
 
-        {/* Notices */}
-        {isExpired && (
-          <div className="mb-5 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 flex gap-3 text-amber-400 text-xs">
-            <AlertTriangle className="w-4 h-4 shrink-0" />
-            <span>Session expired. Please log in again to continue.</span>
-          </div>
-        )}
-        {isRegistered && (
-          <div className="mb-5 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex gap-3 text-emerald-400 text-xs">
-            <AlertTriangle className="w-4 h-4 shrink-0 text-emerald-500" />
-            <span>Registration successful! You can now sign in below.</span>
-          </div>
-        )}
 
-        {/* Form Container */}
-        <div className="glass-card rounded-3xl p-8 shadow-xl">
-          {error && (
-            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/25 flex gap-3 text-red-400 text-xs leading-normal">
-              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
-              <span>{error}</span>
-            </div>
-          )}
+return (
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label htmlFor="email" className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                Email Address
-              </label>
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 pointer-events-none">
-                  <Mail className="w-4.5 h-4.5" />
-                </span>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="name@company.com"
-                  className="w-full pl-11 pr-4 py-3 bg-slate-950/80 border border-white/10 rounded-xl text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-slate-600"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={loading}
-                  required
-                />
-              </div>
-            </div>
+<div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden transition-all duration-500 theme-text-main">
 
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <label htmlFor="password" className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                  Password
-                </label>
-                <Link to="/forgot-password" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
-                  Forgot Password?
-                </Link>
-              </div>
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 pointer-events-none">
-                  <KeyRound className="w-4.5 h-4.5" />
-                </span>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="••••••••"
-                  className="w-full pl-11 pr-4 py-3 bg-slate-950/80 border border-white/10 rounded-xl text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-slate-600"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={loading}
-                  required
-                />
-              </div>
-            </div>
 
-            <div className="flex items-center justify-between py-1">
-              <label className="flex items-center gap-2 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 rounded border-white/10 bg-slate-950 accent-blue-500 text-blue-500 focus:ring-0 cursor-pointer"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  disabled={loading}
-                />
-                <span className="text-xs text-slate-400">Remember my session</span>
-              </label>
-            </div>
+{/* Background animation */}
 
-            <button
-              type="submit"
-              className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all disabled:opacity-50 disabled:pointer-events-none"
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Authenticating...
-                </>
-              ) : (
-                'Sign In'
-              )}
-            </button>
-          </form>
-        </div>
+<div className="
+absolute 
+w-[500px]
+h-[500px]
+rounded-full
+bg-indigo-500/20
+blur-[120px]
+top-10
+left-10
+animate-pulse
+"/>
 
-        {/* Footer Link */}
-        <p className="text-center text-sm text-slate-400 mt-6">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
-            Create an account
-          </Link>
-        </p>
-      </div>
-    </div>
-  );
+
+<div className="
+absolute 
+w-[400px]
+h-[400px]
+rounded-full
+bg-purple-500/20
+blur-[120px]
+bottom-10
+right-10
+animate-pulse
+"/>
+
+
+
+
+<div className="
+w-full 
+max-w-5xl 
+grid 
+lg:grid-cols-2 
+gap-12 
+items-center
+relative z-10
+">
+
+
+
+{/* LEFT SIDE */}
+
+
+<div className="hidden lg:block space-y-8">
+
+
+<div>
+
+<div className="
+w-16 
+h-16 
+rounded-3xl
+bg-gradient-to-br
+from-indigo-500
+to-purple-600
+flex
+items-center
+justify-center
+shadow-xl
+mb-6
+">
+
+<Cpu className="text-white w-8 h-8"/>
+
+</div>
+
+
+<h1 className="
+text-5xl
+font-black
+leading-tight
+">
+
+Welcome to
+
+<span className="
+block
+bg-gradient-to-r
+from-cyan-400
+to-purple-500
+bg-clip-text
+text-transparent
+">
+
+SignLink AI
+
+</span>
+
+</h1>
+
+
+
+<p className="
+mt-5
+text-lg
+theme-text-muted
+max-w-md
+">
+
+AI powered Indian Sign Language translation platform using hand gestures and non-manual features.
+
+</p>
+
+
+</div>
+{/* AI FEATURE CARDS */}
+
+<div className="space-y-4">
+
+
+<div className="
+flex items-center gap-4
+p-5
+rounded-3xl
+theme-card
+hover:scale-[1.03]
+transition-all
+duration-300
+">
+
+<div className="
+w-12 h-12
+rounded-2xl
+bg-cyan-500/20
+flex items-center justify-center
+">
+
+<Brain className="text-cyan-500"/>
+
+</div>
+
+
+<div>
+
+<h3 className="font-bold text-lg">
+AI Vision Processing
+</h3>
+
+<p className="text-sm theme-text-muted">
+Real-time gesture and facial analysis
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div className="
+flex items-center gap-4
+p-5
+rounded-3xl
+theme-card
+hover:scale-[1.03]
+transition-all
+duration-300
+">
+
+
+<div className="
+w-12 h-12
+rounded-2xl
+bg-purple-500/20
+flex items-center justify-center
+">
+
+<ScanFace className="text-purple-500"/>
+
+</div>
+
+
+
+<div>
+
+<h3 className="font-bold text-lg">
+Non-Manual Features
+</h3>
+
+
+<p className="text-sm theme-text-muted">
+Understanding expressions and movements
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div className="
+flex items-center gap-4
+p-5
+rounded-3xl
+theme-card
+hover:scale-[1.03]
+transition-all
+duration-300
+">
+
+
+<div className="
+w-12 h-12
+rounded-2xl
+bg-emerald-500/20
+flex items-center justify-center
+">
+
+<ShieldCheck className="text-emerald-500"/>
+
+</div>
+
+
+
+<div>
+
+<h3 className="font-bold text-lg">
+Secure Translation
+</h3>
+
+
+<p className="text-sm theme-text-muted">
+Privacy focused accessibility system
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+{/* LOGIN CARD */}
+
+
+<div className="
+theme-card
+rounded-[2rem]
+p-8
+shadow-2xl
+backdrop-blur-xl
+">
+
+
+<div className="text-center mb-8">
+
+
+<div className="
+w-14
+h-14
+mx-auto
+rounded-2xl
+bg-gradient-to-br
+from-indigo-500
+to-purple-600
+flex
+items-center
+justify-center
+mb-4
+">
+
+<Cpu className="text-white"/>
+
+</div>
+
+
+
+<h2 className="
+text-3xl
+font-black
+">
+
+Sign In
+
+</h2>
+
+
+<p className="theme-text-muted mt-2">
+
+Access your translation suite
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+{/* NOTIFICATIONS */}
+
+
+{isExpired && (
+
+<div className="
+mb-5
+p-4
+rounded-2xl
+bg-amber-500/10
+border
+border-amber-400/30
+flex
+gap-3
+text-sm
+">
+
+<AlertTriangle className="w-5"/>
+
+Session expired. Please login again.
+
+</div>
+
+)}
+
+
+
+
+
+{isRegistered && (
+
+<div className="
+mb-5
+p-4
+rounded-2xl
+bg-emerald-500/10
+border
+border-emerald-400/30
+flex
+gap-3
+text-sm
+">
+
+<CheckCircle2 className="w-5"/>
+
+Registration successful. Please login.
+
+</div>
+
+)}
+
+
+
+
+
+
+{error && (
+
+<div className="
+mb-5
+p-4
+rounded-2xl
+bg-red-500/10
+border
+border-red-400/30
+flex
+gap-3
+text-sm
+">
+
+<AlertTriangle className="w-5"/>
+
+{error}
+
+</div>
+
+)}
+
+
+
+
+
+
+<form
+onSubmit={handleSubmit}
+className="space-y-5"
+>
+
+
+
+{/* EMAIL */}
+
+<div>
+
+
+<label className="
+text-xs
+font-bold
+uppercase
+tracking-wider
+theme-text-muted
+">
+
+Email Address
+
+</label>
+
+
+<div className="relative mt-2">
+
+
+<Mail className="
+absolute
+left-4
+top-3.5
+w-5
+theme-text-light
+"/>
+
+
+
+<input
+
+type="email"
+
+value={email}
+
+onChange={(e)=>setEmail(e.target.value)}
+
+placeholder="name@email.com"
+
+className="
+w-full
+pl-12
+py-3
+rounded-2xl
+theme-input
+"
+
+required
+
+/>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+{/* PASSWORD */}
+
+<div>
+
+
+<label className="
+text-xs
+font-bold
+uppercase
+tracking-wider
+theme-text-muted
+">
+
+Password
+
+</label>
+
+
+<div className="relative mt-2">
+
+
+<KeyRound className="
+absolute
+left-4
+top-3.5
+w-5
+theme-text-light
+"/>
+
+
+
+<input
+
+type="password"
+
+value={password}
+
+onChange={(e)=>setPassword(e.target.value)}
+
+placeholder="••••••••"
+
+className="
+w-full
+pl-12
+py-3
+rounded-2xl
+theme-input
+"
+
+required
+
+/>
+
+
+</div>
+
+
+</div>
+{/* REMEMBER ME */}
+
+<div className="flex items-center justify-between pt-2">
+
+
+<label className="flex items-center gap-3 cursor-pointer">
+
+
+<input
+
+type="checkbox"
+
+checked={rememberMe}
+
+onChange={(e)=>setRememberMe(e.target.checked)}
+
+className="w-4 h-4 accent-indigo-600"
+
+/>
+
+
+<span className="text-sm theme-text-muted">
+
+Remember my session
+
+</span>
+
+
+</label>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+{/* LOGIN BUTTON */}
+
+
+<button
+
+type="submit"
+
+disabled={loading}
+
+className="
+w-full
+py-4
+rounded-2xl
+bg-gradient-to-r
+from-indigo-600
+to-purple-600
+text-white
+font-bold
+shadow-xl
+hover:scale-[1.03]
+transition-all
+duration-300
+flex
+items-center
+justify-center
+gap-3
+disabled:opacity-50
+"
+
+>
+
+
+{
+
+loading ? (
+
+<>
+
+<Loader2 className="animate-spin w-5 h-5"/>
+
+Authenticating...
+
+</>
+
+
+) : (
+
+<>
+
+<Sparkles className="w-5 h-5"/>
+
+Sign In
+
+</>
+
+)
+
+}
+
+
+
+</button>
+
+
+
+</form>
+
+
+
+
+
+</div>
+
+
+
+
+{/* FOOTER */}
+
+
+
+<div className="
+text-center
+mt-8
+space-y-5
+">
+
+
+<p className="theme-text-muted">
+
+
+Don't have an account?{" "}
+
+
+
+<Link
+
+to="/register"
+
+className="
+theme-accent-text
+font-bold
+hover:underline
+"
+
+>
+
+Create Account
+
+</Link>
+
+
+
+</p>
+
+
+
+
+
+
+
+{/* THEME BUTTONS */}
+
+
+
+<div className="
+flex
+justify-center
+gap-3
+">
+
+
+<button
+
+onClick={()=>setTheme("light")}
+
+className={`
+p-3
+rounded-xl
+border
+transition-all
+
+${theme==="light"
+?
+"bg-indigo-600 text-white"
+:
+"theme-bg-sub"
+}
+
+`}
+
+title="Light Mode"
+
+>
+
+<Sun className="w-4 h-4"/>
+
+</button>
+
+
+
+
+
+
+
+<button
+
+onClick={()=>setTheme("dark")}
+
+className={`
+p-3
+rounded-xl
+border
+transition-all
+
+${theme==="dark"
+?
+"bg-indigo-600 text-white"
+:
+"theme-bg-sub"
+}
+
+`}
+
+title="Dark Mode"
+
+>
+
+<Moon className="w-4 h-4"/>
+
+</button>
+
+
+
+
+
+
+
+<button
+
+onClick={()=>setTheme("contrast")}
+
+className={`
+p-3
+rounded-xl
+border
+transition-all
+
+${theme==="contrast"
+?
+"bg-yellow-400 text-black"
+:
+"theme-bg-sub"
+}
+
+`}
+
+title="Contrast Mode"
+
+>
+
+<Eye className="w-4 h-4"/>
+
+</button>
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+);
+
 };
+
 
 export default LoginPage;

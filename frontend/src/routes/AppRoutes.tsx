@@ -14,6 +14,7 @@ import HistoryPage from '../pages/HistoryPage';
 import AnalyticsPage from '../pages/AnalyticsPage';
 import ProfilePage from '../pages/ProfilePage';
 import AdminPage from '../pages/AdminPage';
+import SystemArchitecturePage from '../pages/SystemArchitecturePage';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -28,6 +29,7 @@ const AppRoutes: React.FC = () => {
       <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/workspace" element={<WorkspacePage />} />
+        <Route path="/architecture" element={<SystemArchitecturePage />} />
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/analytics" element={<AnalyticsPage />} />
         <Route path="/profile" element={<ProfilePage />} />

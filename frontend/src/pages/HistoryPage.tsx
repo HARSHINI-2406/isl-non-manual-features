@@ -3,7 +3,7 @@ import api from '../services/api';
 import { useAuth } from '../store/AuthContext';
 import { 
   Search, Trash2, Calendar, FileText, ArrowLeft, ArrowRight,
-  Filter, RefreshCw
+  RefreshCw
 } from 'lucide-react';
 
 interface HistoryItem {
@@ -90,37 +90,37 @@ const HistoryPage: React.FC = () => {
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-sans">
       {/* Header bar */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-200">Translation Logs</h2>
-          <p className="text-sm text-slate-400">Search and audit previous sign translations.</p>
+          <h2 className="text-xl font-bold theme-text-main">Translation Logs</h2>
+          <p className="text-sm theme-text-muted">Search and audit previous sign translations.</p>
         </div>
         {items.length > 0 && (
           <button
             onClick={handleClearAll}
             disabled={clearing}
-            className="px-4 py-2 border border-red-500/20 hover:bg-red-500/10 text-red-400 text-xs font-semibold rounded-xl transition-colors disabled:opacity-50"
+            className="px-4 py-2 border border-red-500/20 hover:bg-red-550/10 text-red-550 dark:text-red-400 text-xs font-semibold rounded-xl transition-colors disabled:opacity-50"
           >
-            {clearing ? 'Purging logs...' : 'Purge History'}
+            {clearing ? 'Purging logs...' : 'Purge History Logs'}
           </button>
         )}
       </div>
 
       {/* Search & Filters block */}
-      <div className="glass-card rounded-2xl p-4 flex flex-col md:flex-row items-center gap-4">
+      <div className="theme-card p-4 flex flex-col md:flex-row items-center gap-4">
         <form onSubmit={handleSearchSubmit} className="relative w-full md:flex-1">
           <input
             type="text"
             placeholder="Search by translated sign meaning..."
-            className="w-full pl-11 pr-4 py-2.5 bg-slate-950/80 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-blue-500 text-slate-200 placeholder:text-slate-600"
+            className="w-full pl-11 pr-4 py-2.5 theme-input rounded-xl text-sm focus:outline-none placeholder:text-slate-500"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           <button 
             type="submit"
-            className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 hover:text-slate-300"
+            className="absolute inset-y-0 left-0 pl-3.5 flex items-center theme-text-light hover:theme-text-main"
           >
             <Search className="w-4.5 h-4.5" />
           </button>
@@ -128,11 +128,8 @@ const HistoryPage: React.FC = () => {
 
         <div className="flex gap-4 w-full md:w-auto">
           <div className="relative flex-1 md:w-48">
-            <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 pointer-events-none">
-              <Filter className="w-4 h-4" />
-            </span>
             <select
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-white/5 rounded-xl text-xs text-slate-300 focus:outline-none appearance-none cursor-pointer"
+              className="w-full pl-4 pr-10 py-2.5 theme-input rounded-xl text-xs focus:outline-none cursor-pointer"
               value={inputType}
               onChange={(e) => {
                 setInputType(e.target.value);
@@ -142,7 +139,7 @@ const HistoryPage: React.FC = () => {
               <option value="">All Input Formats</option>
               <option value="webcam">Live Webcam Feed</option>
               <option value="video">Uploaded Video File</option>
-              <option value="image">Static Image Frame</option>
+              <option value="image">Static Image File</option>
             </select>
           </div>
           <button
@@ -152,7 +149,7 @@ const HistoryPage: React.FC = () => {
               setPage(1);
               fetchHistory();
             }}
-            className="px-4 py-2.5 bg-white/5 border border-white/5 hover:bg-white/10 text-xs font-semibold rounded-xl text-slate-400 hover:text-slate-200 transition-colors"
+            className="px-4 py-2.5 theme-bg-sub border theme-border hover:opacity-90 text-xs font-semibold rounded-xl theme-text-muted transition-colors"
           >
             Reset
           </button>
@@ -162,23 +159,23 @@ const HistoryPage: React.FC = () => {
       {/* Main Table */}
       {loading ? (
         <div className="h-64 flex flex-col items-center justify-center">
-          <RefreshCw className="w-8 h-8 text-blue-500 animate-spin" />
-          <p className="mt-4 text-xs text-slate-500 font-medium">Fetching database logs...</p>
+          <RefreshCw className="w-8 h-8 text-indigo-500 animate-spin" />
+          <p className="mt-4 text-xs theme-text-muted font-medium">Fetching database logs...</p>
         </div>
       ) : items.length === 0 ? (
-        <div className="glass-card rounded-2xl p-12 text-center text-slate-500">
-          <FileText className="w-12 h-12 mx-auto mb-4 text-slate-700" />
-          <h4 className="font-bold text-slate-300 mb-1">No matches found</h4>
-          <p className="text-sm text-slate-600 max-w-sm mx-auto">
+        <div className="theme-card p-12 text-center theme-text-light">
+          <FileText className="w-12 h-12 mx-auto mb-4 text-slate-400" />
+          <h4 className="font-bold theme-text-main mb-1">No matches found</h4>
+          <p className="text-xs theme-text-muted max-w-sm mx-auto">
             Try adjusting your search criteria, selecting a different filter, or launch the workspace to capture signs.
           </p>
         </div>
       ) : (
-        <div className="glass-card rounded-2xl overflow-hidden">
+        <div className="theme-card overflow-hidden">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-left text-sm border-collapse">
               <thead>
-                <tr className="border-b border-white/5 text-slate-400 font-semibold text-xs uppercase tracking-wider bg-slate-900/10">
+                <tr className="border-b theme-border theme-text-light font-bold text-xs uppercase tracking-wider theme-bg-sub bg-zinc-900/10">
                   {user?.role === 'admin' && <th className="py-3.5 px-6">User ID</th>}
                   <th className="py-3.5 px-6">Input Source</th>
                   <th className="py-3.5 px-6">Translated Text</th>
@@ -187,7 +184,7 @@ const HistoryPage: React.FC = () => {
                   <th className="py-3.5 px-6 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5">
+              <tbody className="divide-y theme-border">
                 {items.map((item) => {
                   const ext = item.input_file.split('.').pop() || '';
                   const type = item.input_file.includes('live') 
@@ -197,39 +194,41 @@ const HistoryPage: React.FC = () => {
                       : 'Image File';
 
                   return (
-                    <tr key={item.id} className="hover:bg-white/2 transition-colors">
+                    <tr key={item.id} className="hover:bg-slate-550/5 transition-colors">
                       {user?.role === 'admin' && (
-                        <td className="py-4 px-6 font-semibold text-slate-400 text-xs">
+                        <td className="py-4 px-6 font-semibold theme-text-light text-xs">
                           USR-{item.user_id}
                         </td>
                       )}
                       <td className="py-4 px-6">
-                        <span className="font-medium text-slate-300">{type}</span>
-                        <span className="text-[10px] text-slate-500 block truncate max-w-xs">{item.input_file}</span>
+                        <span className="font-semibold theme-text-main">{type}</span>
+                        <span className="text-[10px] theme-text-light block truncate max-w-xs">{item.input_file}</span>
                       </td>
-                      <td className="py-4 px-6 text-slate-200 font-medium">
+                      <td className="py-4 px-6 theme-text-main font-semibold">
                         "{item.output_text}"
                       </td>
                       <td className="py-4 px-6 text-center">
                         <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
-                          item.confidence >= 0.85 
-                            ? 'bg-emerald-500/10 text-emerald-400' 
-                            : item.confidence >= 0.70 
-                              ? 'bg-amber-500/10 text-amber-400' 
-                              : 'bg-red-500/10 text-red-400'
+                          item.confidence >= 85 
+                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' 
+                            : item.confidence >= 70 
+                              ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400' 
+                              : 'bg-red-500/10 text-red-650 dark:text-red-400'
                         }`}>
-                          {Math.round(item.confidence * 100)}%
+                          {Math.round(item.confidence)}%
                         </span>
                       </td>
-                      <td className="py-4 px-6 text-slate-400 text-xs flex items-center gap-1.5 mt-2 md:mt-0">
-                        <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                        {new Date(item.created_at).toLocaleString()}
+                      <td className="py-4 px-6 theme-text-muted text-xs font-medium">
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                          {new Date(item.created_at).toLocaleString()}
+                        </div>
                       </td>
                       <td className="py-4 px-6 text-right">
                         <button
                           onClick={() => handleDelete(item.id)}
                           disabled={deletingId === item.id}
-                          className="p-1.5 rounded-lg border border-white/5 hover:border-red-500/20 text-slate-400 hover:text-red-400 hover:bg-red-500/5 transition-all"
+                          className="p-1.5 rounded-lg border theme-border hover:border-red-500/30 theme-text-muted hover:text-red-500 hover:bg-red-500/5 transition-all"
                           title="Delete log"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -244,22 +243,22 @@ const HistoryPage: React.FC = () => {
 
           {/* Pagination bar */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between p-4 border-t border-white/5 bg-slate-900/10">
-              <span className="text-xs text-slate-500">
+            <div className="flex items-center justify-between p-4 border-t theme-border theme-bg-sub bg-zinc-900/10">
+              <span className="text-xs theme-text-muted">
                 Showing page {page} of {totalPages} ({total} logs total)
               </span>
               <div className="flex gap-2">
                 <button
                   disabled={page === 1}
                   onClick={() => setPage(prev => Math.max(1, prev - 1))}
-                  className="p-1.5 rounded-lg border border-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-all disabled:opacity-30 disabled:pointer-events-none"
+                  className="p-1.5 rounded-lg border theme-border theme-text-muted hover:theme-text-main transition-all disabled:opacity-30 disabled:pointer-events-none"
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </button>
                 <button
                   disabled={page === totalPages}
                   onClick={() => setPage(prev => Math.min(totalPages, prev + 1))}
-                  className="p-1.5 rounded-lg border border-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-all disabled:opacity-30 disabled:pointer-events-none"
+                  className="p-1.5 rounded-lg border theme-border theme-text-muted hover:theme-text-main transition-all disabled:opacity-30 disabled:pointer-events-none"
                 >
                   <ArrowRight className="w-4 h-4" />
                 </button>
