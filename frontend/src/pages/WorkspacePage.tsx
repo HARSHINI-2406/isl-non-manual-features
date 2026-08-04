@@ -285,7 +285,7 @@ const [processing, setProcessing] = useState(false);
           }
 
 
-          stroke=stroke="#22d3ee"
+          stroke="#22d3ee"
 
           strokeWidth="14"
 
@@ -329,7 +329,7 @@ const [processing, setProcessing] = useState(false);
           }
 
 
-          stroke=stroke="#22d3ee"
+          stroke="#22d3ee"
 
           strokeWidth="14"
 
