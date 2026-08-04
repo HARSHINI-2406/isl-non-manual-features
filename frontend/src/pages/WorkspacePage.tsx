@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 import {
   Camera,
@@ -22,6 +23,13 @@ const WorkspacePage: React.FC = () => {
 
 
   const [streaming, setStreaming] = useState(false);
+  const [translation, setTranslation] = useState(
+  "Waiting for camera input..."
+);
+
+const [confidence, setConfidence] = useState(0);
+
+const [processing, setProcessing] = useState(false);
 
 
 
@@ -277,7 +285,7 @@ const WorkspacePage: React.FC = () => {
           }
 
 
-          stroke="#111827"
+          stroke=stroke="#22d3ee"
 
           strokeWidth="14"
 
@@ -321,7 +329,7 @@ const WorkspacePage: React.FC = () => {
           }
 
 
-          stroke="#111827"
+          stroke=stroke="#22d3ee"
 
           strokeWidth="14"
 

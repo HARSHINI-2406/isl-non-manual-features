@@ -160,7 +160,7 @@ grid
 lg:grid-cols-2
 gap-12
 items-center
-"></div>
+">
 {/* LEFT AI SECTION */}
 
 
@@ -503,7 +503,7 @@ text-sm
 <form
 onSubmit={handleSubmit}
 className="space-y-5"
-></form>
+>
 {/* NAME */}
 
 <div>
@@ -852,24 +852,18 @@ Create Account
 
 
 
+
+
 {/* FOOTER */}
 
-
 <div className="
-absolute
-bottom-6
 text-center
-left-0
-right-0
+mt-8
 ">
-
 
 <p className="theme-text-muted">
 
-
 Already have an account?{" "}
-
-
 
 <Link
 
@@ -887,116 +881,14 @@ Sign In
 
 </Link>
 
-
-
 </p>
 
 
-
-
-
-<div className="
-flex
-justify-center
-gap-3
-mt-4
-">
-
-
-
-<button
-
-onClick={()=>setTheme("light")}
-
-className={`
-p-3
-rounded-xl
-border
-
-${theme==="light"
-?
-"bg-indigo-600 text-white"
-:
-"theme-bg-sub"
-}
-
-`}
-
->
-
-<Sun className="w-4"/>
-
-</button>
-
-
-
-
-
-<button
-
-onClick={()=>setTheme("dark")}
-
-className={`
-p-3
-rounded-xl
-border
-
-${theme==="dark"
-?
-"bg-indigo-600 text-white"
-:
-"theme-bg-sub"
-}
-
-`}
-
->
-
-<Moon className="w-4"/>
-
-</button>
-
-
-
-
-
-<button
-
-onClick={()=>setTheme("contrast")}
-
-className={`
-p-3
-rounded-xl
-border
-
-${theme==="contrast"
-?
-"bg-yellow-400 text-black"
-:
-"theme-bg-sub"
-}
-
-`}
-
->
-
-<Eye className="w-4"/>
-
-</button>
-
-
-
 </div>
 
 
 </div>
 
-
-
-</div>
-
-
-</div>
 
 
 );
@@ -1004,4 +896,8 @@ ${theme==="contrast"
 };
 
 
+
+
+
 export default RegisterPage;
+
