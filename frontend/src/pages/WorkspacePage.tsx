@@ -63,7 +63,7 @@ const WorkspacePage: React.FC = () => {
       }
 
       setStreaming(true);
-      setTranslation("Live camera connected. Start signing...");
+      setTranslation("Hello !!");
       setConfidence(100);
     } catch (error) {
       alert("Camera permission denied");
